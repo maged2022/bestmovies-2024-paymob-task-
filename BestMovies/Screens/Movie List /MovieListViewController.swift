@@ -66,4 +66,19 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160 // أو أي ارتفاع يناسبك
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailsVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else { return }
+        
+        detailsVC.movie = movies[indexPath.row]
+        
+        detailsVC.onFavoriteChanged = { [weak self] isFavorite in
+            self?.movies[indexPath.row].isFavorite = isFavorite
+            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+
+        navigationController?.pushViewController(detailsVC, animated: true)
+    }
+
 }
