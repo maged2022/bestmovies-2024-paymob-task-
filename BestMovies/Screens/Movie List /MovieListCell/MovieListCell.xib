@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieListCell" rowHeight="157" id="KGk-i7-Jjw" customClass="MovieListCell" customModule="BestMovies" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="573" height="157"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="573" height="157"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-KU-aDr">
+                        <rect key="frame" x="155" y="25" width="353" height="107"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oppenheimer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8SJ-8a-ZVM">
+                                <rect key="frame" x="0.0" y="0.0" width="353" height="35.666666666666664"/>
+                                <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rating 50" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ha-8u-74w">
+                                <rect key="frame" x="0.0" y="35.666666666666671" width="353" height="35.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2024-01-20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbo-fH-xmt">
+                                <rect key="frame" x="0.0" y="71.333333333333329" width="353" height="35.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="al9-Sk-4yf">
+                        <rect key="frame" x="513" y="53.666666666666657" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="C25-8F-b9b"/>
+                            <constraint firstAttribute="height" constant="50" id="pjC-GD-ju6"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="heart" catalog="system">
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                        </state>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster-1" translatesAutoresizingMaskIntoConstraints="NO" id="mc3-j6-G4c">
+                        <rect key="frame" x="5" y="3.6666666666666714" width="130" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="Dvl-qg-EXK"/>
+                            <constraint firstAttribute="width" constant="130" id="SrX-UB-KZW"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Rxs-KU-aDr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="7X5-nI-Krs"/>
+                    <constraint firstItem="mc3-j6-G4c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LFR-Lz-IfA"/>
+                    <constraint firstItem="al9-Sk-4yf" firstAttribute="centerY" secondItem="mc3-j6-G4c" secondAttribute="centerY" id="PQC-4q-z6x"/>
+                    <constraint firstItem="mc3-j6-G4c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Pld-8q-LEW"/>
+                    <constraint firstAttribute="bottom" secondItem="Rxs-KU-aDr" secondAttribute="bottom" constant="25" id="aaZ-rf-sJM"/>
+                    <constraint firstAttribute="trailing" secondItem="al9-Sk-4yf" secondAttribute="trailing" constant="10" id="c98-Rn-s5n"/>
+                    <constraint firstItem="Rxs-KU-aDr" firstAttribute="leading" secondItem="mc3-j6-G4c" secondAttribute="trailing" constant="20" id="jI6-3G-mfa"/>
+                    <constraint firstItem="al9-Sk-4yf" firstAttribute="leading" secondItem="Rxs-KU-aDr" secondAttribute="trailing" constant="5" id="nZf-E6-9lw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="favoriteButton" destination="al9-Sk-4yf" id="zTc-Ac-kNu"/>
+                <outlet property="posterImageView" destination="mc3-j6-G4c" id="yGJ-qB-FXp"/>
+                <outlet property="ratingLabel" destination="0ha-8u-74w" id="MW2-95-Hzq"/>
+                <outlet property="releaseDateLabel" destination="Sbo-fH-xmt" id="p8y-0m-LVd"/>
+                <outlet property="titleLabel" destination="8SJ-8a-ZVM" id="gh2-UB-KH1"/>
+            </connections>
+            <point key="canvasLocation" x="275.57251908396944" y="-55.281690140845072"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="poster-1" width="184" height="274"/>
+    </resources>
+</document>
