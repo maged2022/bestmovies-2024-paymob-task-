@@ -12,11 +12,11 @@ final class MovieUseCase: MovieRepoProtocol {
     
     var repoImplmentation: MovieRepoProtocol
     
-    init(repoImplmentation: MovieRepoProtocol = MovieReposatoryImp()) {
+    init(repoImplmentation: MovieRepoProtocol = MovieRepoImp()) {
         self.repoImplmentation = repoImplmentation
     }
     
-    func fetchMovies() -> AnyPublisher<[Movie], any Error> {
+    func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
         repoImplmentation.fetchMovies()
     }
 }

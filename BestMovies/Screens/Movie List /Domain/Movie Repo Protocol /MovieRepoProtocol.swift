@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol MovieRepoProtocol {
-    func fetchMovies() -> AnyPublisher<[Movie], Error>
+    func fetchMovies() -> AnyPublisher<[Movie], NetworkError>
 }

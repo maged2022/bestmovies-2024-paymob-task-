@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class MovieReposatoryImp: MovieRepoProtocol {
+final class MovieRepoImp: MovieRepoProtocol {
     
     var remoteRepo: MovieRemoteReposatory
     
@@ -16,7 +16,7 @@ final class MovieReposatoryImp: MovieRepoProtocol {
         self.remoteRepo = remoteRepo
     }
     
-    func fetchMovies() -> AnyPublisher<[Movie], any Error> {
+    func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
         remoteRepo.fetchMovies()
     }
 }
