@@ -6,30 +6,20 @@
 //
 
 import UIKit
-
-import UIKit
+import Combine
 
 class MovieListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var movies: [Movie] = [
-        Movie(id: 1, title: "Dune: Part Two", posterName: "poster-1", voteAverage: 8.5, releaseDate: "2024-03-01", isFavorite: false),
-        Movie(id: 2, title: "Oppenheimer", posterName: "poster-2", voteAverage: 9.0, releaseDate: "2024-01-20", isFavorite: false),
-        Movie(id: 3, title: "Barbie", posterName: "poster-3", voteAverage: 3.8, releaseDate: "2024-07-21", isFavorite: false),
-        Movie(id: 4, title: "Troy", posterName: "poster-4", voteAverage: 9.8, releaseDate: "2022-04-21", isFavorite: false),
-        Movie(id: 5, title: "Barbie", posterName: "poster-5", voteAverage: 7.8, releaseDate: "2025-07-21", isFavorite: false),
-        Movie(id: 3, title: "Barbie", posterName: "poster-3", voteAverage: 3.8, releaseDate: "2024-07-21", isFavorite: false),
-        Movie(id: 4, title: "Troy", posterName: "poster-4", voteAverage: 9.8, releaseDate: "2022-04-21", isFavorite: false),
-        Movie(id: 5, title: "Barbie", posterName: "poster-5", voteAverage: 7.8, releaseDate: "2025-07-21", isFavorite: false),
-        Movie(id: 3, title: "Barbie", posterName: "poster-3", voteAverage: 3.8, releaseDate: "2024-07-21", isFavorite: false),
-        Movie(id: 4, title: "Troy", posterName: "poster-4", voteAverage: 9.8, releaseDate: "2022-04-21", isFavorite: false),
-        Movie(id: 5, title: "Barbie", posterName: "poster-5", voteAverage: 7.8, releaseDate: "2025-07-21", isFavorite: false),
-    ]
+    private var viewModel = MovieListViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        bindViewModel()
+        viewModel.fetchMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,41 +46,56 @@ class MovieListViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 250
     }
+    
+    private func bindViewModel() {
+        viewModel.$movies
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$errorMessage
+            .compactMap { $0 }
+            .sink { [weak self] message in
+                self?.showAlert(message: message)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
 }
 
-// MARK: -UITableViewDataSource ,UITableViewDelegate
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return viewModel.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListCell", for: indexPath) as? MovieListCell else {
             return UITableViewCell()
         }
-        let movie = movies[indexPath.row]
+        var movie = viewModel.movies[indexPath.row]
         cell.configure(with: movie)
         cell.onFavoriteTapped = { [weak self] in
-            self?.movies[indexPath.row].isFavorite.toggle()
+            movie.isFavorite?.toggle()
+            self?.viewModel.movies[indexPath.row] = movie
             self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            print("✅ favorite button Tapped from: MovieListViewController")
         }
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = viewModel.movies[indexPath.row]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let detailsVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else { return }
-        
-        detailsVC.movie = movies[indexPath.row]
-        
-        detailsVC.onFavoriteChanged = { [weak self] isFavorite in
-            self?.movies[indexPath.row].isFavorite = isFavorite
-            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        detailsVC.movie = movie
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

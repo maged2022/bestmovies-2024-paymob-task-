@@ -5,14 +5,6 @@
 //  Created by maged on 15/05/2025.
 //
 
-struct Movie {
-    let id: Int
-    let title: String
-    let posterName: String
-    let voteAverage: Double
-    let releaseDate: String
-    var isFavorite: Bool
-}
 import UIKit
 
 class MovieListCell: UITableViewCell {
@@ -34,18 +26,32 @@ class MovieListCell: UITableViewCell {
     }
     
     func configure(with movie: Movie) {
-        posterImageView.image = UIImage(named: movie.posterName)
         titleLabel.text = movie.title
         ratingLabel.text = "⭐️ \(movie.voteAverage)/10"
         releaseDateLabel.text = "📅 \(movie.releaseDate)"
-        isFavorite = movie.isFavorite
+        isFavorite = movie.isFavorite ?? false
         updateFavoriteIcon()
+        
+        if let posterPath = movie.posterPath {
+            let fullURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+            if let url = fullURL {
+                // Use URLSession or Kingfisher/SDWebImage for better performance
+                URLSession.shared.dataTask(with: url) { data, _, _ in
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            self.posterImageView.image = UIImage(data: data)
+                        }
+                    }
+                }.resume()
+            }
+        }
     }
     
     @objc private func favoriteTapped() {
         isFavorite.toggle()
         updateFavoriteIcon()
         onFavoriteTapped?()
+        print("✅ favorite button Tapped from: MovieListCell")
     }
     
     private func updateFavoriteIcon() {
@@ -53,11 +59,4 @@ class MovieListCell: UITableViewCell {
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
         favoriteButton.tintColor = isFavorite ? .systemRed : .gray
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
 }

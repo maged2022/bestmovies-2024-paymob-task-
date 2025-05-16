@@ -5,6 +5,9 @@
 //  Created by maged on 15/05/2025.
 //
 
+
+// MARK: - 6. MovieDetailsViewController.swift
+
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
@@ -18,7 +21,6 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var movie: Movie?
-    var onFavoriteChanged: ((Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,27 +36,23 @@ class MovieDetailsViewController: UIViewController {
     
     private func setupUI() {
         guard let movie = movie else { return }
-        posterImageView.image = UIImage(named: movie.posterName)
         titleLabel.text = movie.title
         ratingLabel.text = "⭐️ \(movie.voteAverage)/10"
         releaseDateLabel.text = "📅 \(movie.releaseDate)"
-        overviewLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        languageLabel.text = "Language: 🇺🇸 English" // لو جالك من API عدله هنا
-        updateFavoriteButton()
-    }
-    
-    private func updateFavoriteButton() {
-        guard let movie = movie else { return }
-        let imageName = movie.isFavorite ? "heart.fill" : "heart"
-        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
-        favoriteButton.tintColor = movie.isFavorite ? .systemRed : .gray
-    }
-    
-    @IBAction func favoriteTapped(_ sender: UIButton) {
-        guard var movie = movie else { return }
-        movie.isFavorite.toggle()
-        self.movie = movie
-        updateFavoriteButton()
-        onFavoriteChanged?(movie.isFavorite)
+        overviewLabel.text = movie.overview
+        languageLabel.text = "Language: \(movie.originalLanguage.uppercased())"
+        
+        if let posterPath = movie.posterPath {
+            let fullURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+            if let url = fullURL {
+                URLSession.shared.dataTask(with: url) { data, _, _ in
+                    if let data = data {
+                        DispatchQueue.main.async {
+                            self.posterImageView.image = UIImage(data: data)
+                        }
+                    }
+                }.resume()
+            }
+        }
     }
 }
