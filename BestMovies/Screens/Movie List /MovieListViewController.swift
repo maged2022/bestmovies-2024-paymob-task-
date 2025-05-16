@@ -32,6 +32,20 @@ class MovieListViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set the navigation title and prefer large titles
+        navigationItem.title = "Best Movies 2024"
+        navigationItem.largeTitleDisplayMode = .always
+        
+        // Force the navigation bar to re-layout after popping from the detail screen
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationController?.navigationBar.sizeToFit()
+        }
+    }
+    
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -64,6 +78,19 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160 // أو أي ارتفاع يناسبك
+        return 160
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailsVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else { return }
+        
+        detailsVC.movie = movies[indexPath.row]
+        
+        detailsVC.onFavoriteChanged = { [weak self] isFavorite in
+            self?.movies[indexPath.row].isFavorite = isFavorite
+            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
