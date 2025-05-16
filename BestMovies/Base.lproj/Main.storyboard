@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie List View Controller-->
+        <!--Best Movies 2024-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MovieListViewController" customModule="BestMovies" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="A2Y-Vu-Jm8">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="155" width="393" height="663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Kk4-25-g1B"/>
@@ -28,20 +28,20 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="A2Y-Vu-Jm8" secondAttribute="bottom" id="93G-me-fYI"/>
-                            <constraint firstItem="A2Y-Vu-Jm8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9lL-fK-EWl"/>
-                            <constraint firstItem="A2Y-Vu-Jm8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cir-yv-sWW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A2Y-Vu-Jm8" secondAttribute="trailing" id="nx3-qi-7kX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="A2Y-Vu-Jm8" secondAttribute="bottom" id="9Iw-F9-g1c"/>
+                            <constraint firstItem="A2Y-Vu-Jm8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Gz9-bR-fRT"/>
+                            <constraint firstItem="A2Y-Vu-Jm8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gM5-3Z-4As"/>
+                            <constraint firstItem="A2Y-Vu-Jm8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="pKQ-KW-0aC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="apG-1i-4ry"/>
+                    <navigationItem key="navigationItem" title="Best Movies 2024" id="apG-1i-4ry"/>
                     <connections>
                         <outlet property="tableView" destination="A2Y-Vu-Jm8" id="std-He-FjM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011.4503816793892" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="970" y="-35"/>
         </scene>
         <!--Movie Details View Controller-->
         <scene sceneID="QrO-C4-LlZ">
@@ -162,8 +162,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8XA-5V-fba" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QFu-hP-Jxv">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="QFu-hP-Jxv">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
