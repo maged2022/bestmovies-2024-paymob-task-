@@ -1,5 +1,5 @@
 //
-//  ApiService.swift
+//  MovieRemoteReposatory.swift
 //  BestMovies
 //
 //  Created by maged on 16/05/2025.
@@ -8,9 +8,11 @@
 import Foundation
 import Combine
 
-class APIService {
-    static let shared = APIService()
-    private init() {}
+protocol MovieRemoteReposatory {
+    func fetchMovies() -> AnyPublisher<[Movie], Error>
+}
+
+final class MovieNetwork: MovieRemoteReposatory {
     
     private let apiKey = "20d6df7ea9cab199efce363288508c17" // Replace with your TMDB API Key
     private let baseURL = "https://api.themoviedb.org/3/discover/movie"

@@ -12,7 +12,7 @@ class MovieListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var viewModel = MovieListViewModel()
+    private var viewModel = MovieListViewModel(movieUseCase: MovieUseCase())
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {

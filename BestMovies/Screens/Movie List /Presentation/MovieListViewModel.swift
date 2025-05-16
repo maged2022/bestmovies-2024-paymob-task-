@@ -14,8 +14,14 @@ class MovieListViewModel {
     
     private var cancellables = Set<AnyCancellable>()
     
+    var movieUseCase: MovieUseCase
+    
+    init(movieUseCase: MovieUseCase) {
+        self.movieUseCase = movieUseCase
+    }
+    
     func fetchMovies() {
-        APIService.shared.fetchMovies()
+        movieUseCase.fetchMovies()
             .sink(receiveCompletion: { [weak self] completion in
                 if case let .failure(error) = completion {
                     self?.errorMessage = error.localizedDescription
