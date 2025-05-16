@@ -83,11 +83,10 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
         var movie = viewModel.movies[indexPath.row]
         cell.configure(with: movie)
         cell.onFavoriteTapped = { [weak self] in
-            movie.isFavorite?.toggle()
-            self?.viewModel.movies[indexPath.row] = movie
+            self?.viewModel.toggleFavorite(for: indexPath.row)
             self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-            print("✅ favorite button Tapped from: MovieListViewController")
         }
+
         return cell
     }
     
