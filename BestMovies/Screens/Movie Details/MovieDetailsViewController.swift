@@ -24,13 +24,15 @@ class MovieDetailsViewController: UIViewController {
     var movie: Movie?
     weak var delegate: MovieDetailsViewControllerDelegate?
     
-    private let favoriteManager = FavoriteMovieManager() // Core Data manager
+    private let favoriteManager = FavoriteMovieManager()
+    weak var coordinator: MovieDetailsTransitionsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = "Movie Details"
         setupUI()
+        setupBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,5 +70,22 @@ class MovieDetailsViewController: UIViewController {
         updateFavoriteIcon(isFavorite: movie.isFavorite == true)
         self.movie = movie
         delegate?.movieDetailsViewController(self, didUpdateFavoriteStatusFor: movie)
+    }
+    
+    private func setupBackButton() {
+        let backImage = UIImage(systemName: "chevron.backward")?.withConfiguration(
+            UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
+        )
+        
+        let backButton = UIBarButtonItem(image: backImage,
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTapped))
+        backButton.tintColor = .darkText
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func backButtonTapped() {
+        coordinator?.backToMovieList()
     }
 }
