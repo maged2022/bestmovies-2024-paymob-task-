@@ -14,6 +14,7 @@ class MovieListViewController: UIViewController {
     
     private var viewModel = MovieListViewModel(movieUseCase: MovieUseCase())
     private var cancellables = Set<AnyCancellable>()
+    weak var coordinator: MovieListTransitionsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,11 +93,9 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = viewModel.movies[indexPath.row]
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let detailsVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else { return }
-        detailsVC.movie = movie
-        detailsVC.delegate = self
-        navigationController?.pushViewController(detailsVC, animated: true)
+        coordinator?.gotoMovieDetails(movie: movie)
+        print("✅ didSelectRowAt Tapped from: Movie List ViewController")
+        
     }
     
     
