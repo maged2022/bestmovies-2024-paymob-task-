@@ -80,14 +80,13 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListCell", for: indexPath) as? MovieListCell else {
             return UITableViewCell()
         }
-        var movie = viewModel.movies[indexPath.row]
+        let movie = viewModel.movies[indexPath.row]
         cell.configure(with: movie)
         cell.onFavoriteTapped = { [weak self] in
-            movie.isFavorite?.toggle()
-            self?.viewModel.movies[indexPath.row] = movie
+            self?.viewModel.toggleFavorite(for: indexPath.row)
             self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-            print("✅ favorite button Tapped from: MovieListViewController")
         }
+        
         return cell
     }
     
@@ -96,10 +95,20 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let detailsVC = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else { return }
         detailsVC.movie = movie
+        detailsVC.delegate = self
         navigationController?.pushViewController(detailsVC, animated: true)
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
+    }
+}
+
+// MARK: - MovieDetailsViewControllerDelegate
+extension MovieListViewController: MovieDetailsViewControllerDelegate {
+    func movieDetailsViewController(_ controller: MovieDetailsViewController, didUpdateFavoriteStatusFor movie: Movie) {
+        viewModel.updateMovie(movie)
+        tableView.reloadData()
     }
 }
