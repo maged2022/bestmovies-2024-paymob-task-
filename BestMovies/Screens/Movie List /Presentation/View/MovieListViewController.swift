@@ -105,11 +105,10 @@ extension MovieListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - MovieDetailsViewControllerDelegate
 extension MovieListViewController: MovieDetailsViewControllerDelegate {
     func movieDetailsViewController(_ controller: MovieDetailsViewController, didUpdateFavoriteStatusFor movie: Movie) {
-        if let index = viewModel.movies.firstIndex(where: { $0.id == movie.id }) {
-            viewModel.movies[index] = movie
-            tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        }
+        viewModel.updateMovie(movie)
+        tableView.reloadData()
     }
 }
