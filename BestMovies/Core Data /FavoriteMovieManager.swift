@@ -1,5 +1,5 @@
 //
-//  CoreDataStack.swift
+//  FavoriteMovieManager.swift
 //  BestMovies
 //
 //  Created by maged on 17/05/2025.
@@ -8,42 +8,9 @@
 import Foundation
 import CoreData
 
-class CoreDataStack {
-    static let shared = CoreDataStack()
-
-    private init() {}
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "BestMoviesModel")
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("❌ CoreData error: \(error)")
-            }
-        }
-        return container
-    }()
-
-    var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
-
-    func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("❌ Save failed: \(error)")
-            }
-        }
-    }
-}
-
-
-import CoreData
-
 class FavoriteMovieManager {
     private let context = CoreDataStack.shared.context
-
+    
     func save(_ movie: Movie) {
         let entity = FavoriteMovie(context: context)
         entity.id = Int64(movie.id)
@@ -55,7 +22,7 @@ class FavoriteMovieManager {
         entity.originalLanguage = movie.originalLanguage
         CoreDataStack.shared.saveContext()
     }
-
+    
     func fetchAll() -> [Movie] {
         let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         do {
@@ -75,7 +42,7 @@ class FavoriteMovieManager {
             return []
         }
     }
-
+    
     func delete(movieId: Int) {
         let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", movieId)
@@ -87,7 +54,7 @@ class FavoriteMovieManager {
             print("❌ Delete failed: \(error)")
         }
     }
-
+    
     func isFavorite(_ id: Int) -> Bool {
         let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", id)

@@ -31,20 +31,7 @@ class MovieListCell: UITableViewCell {
         releaseDateLabel.text = "📅 \(movie.releaseDate)"
         isFavorite = movie.isFavorite ?? false
         updateFavoriteIcon()
-        
-        if let posterPath = movie.posterPath {
-            let fullURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
-            if let url = fullURL {
-                // Use URLSession or Kingfisher/SDWebImage for better performance
-                URLSession.shared.dataTask(with: url) { data, _, _ in
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            self.posterImageView.image = UIImage(data: data)
-                        }
-                    }
-                }.resume()
-            }
-        }
+        ImageLoader.shared.loadImage(from: movie.posterPath, into: posterImageView)
     }
     
     @objc private func favoriteTapped() {
