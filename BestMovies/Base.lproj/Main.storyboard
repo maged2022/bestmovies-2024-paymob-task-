@@ -85,6 +85,9 @@
                                 <state key="normal" image="heart" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
                                 </state>
+                                <connections>
+                                    <action selector="favoriteButtonTapped:" destination="dw2-n3-T2s" eventType="touchUpInside" id="cMZ-eE-Txk"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Igf-NS-WmE">
                                 <rect key="frame" x="0.0" y="59" width="393" height="290"/>

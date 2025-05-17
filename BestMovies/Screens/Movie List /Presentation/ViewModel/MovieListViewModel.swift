@@ -11,15 +11,15 @@ import Combine
 class MovieListViewModel {
     @Published var movies: [Movie] = []
     @Published var errorMessage: String? = nil
-
+    
     private var cancellables = Set<AnyCancellable>()
     var movieUseCase: MovieUseCase
     private let favoriteManager = FavoriteMovieManager()
-
+    
     init(movieUseCase: MovieUseCase) {
         self.movieUseCase = movieUseCase
     }
-
+    
     func fetchMovies() {
         movieUseCase.fetchMovies()
             .map { [weak self] fetchedMovies in
@@ -41,17 +41,23 @@ class MovieListViewModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func toggleFavorite(for index: Int) {
         var movie = movies[index]
         movie.isFavorite?.toggle()
-
+        
         if movie.isFavorite == true {
             favoriteManager.save(movie)
         } else {
             favoriteManager.delete(movieId: movie.id)
         }
-
+        
         movies[index] = movie
+    }
+    
+    func updateMovie(_ updatedMovie: Movie) {
+        if let index = movies.firstIndex(where: { $0.id == updatedMovie.id }) {
+            movies[index] = updatedMovie
+        }
     }
 }
