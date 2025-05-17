@@ -46,17 +46,7 @@ class MovieDetailsViewController: UIViewController {
         overviewLabel.text = movie.overview
         languageLabel.text = "Language: \(movie.originalLanguage.uppercased())"
         updateFavoriteIcon(isFavorite: movie.isFavorite == true)
-        
-        if let posterPath = movie.posterPath,
-           let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)") {
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self.posterImageView.image = UIImage(data: data)
-                    }
-                }
-            }.resume()
-        }
+        ImageLoader.shared.loadImage(from: movie.posterPath, into: posterImageView)
     }
     
     private func updateFavoriteIcon(isFavorite: Bool) {
