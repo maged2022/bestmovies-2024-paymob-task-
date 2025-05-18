@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol MovieUseCaseProtocol {
-    func fetchMovies() -> AnyPublisher<[Movie], NetworkError>
+    func fetchMovies(for year: String) -> AnyPublisher<[Movie], NetworkError>
     func toggleFavorite(_ movie: Movie)
 }
 
@@ -21,8 +21,8 @@ final class MovieUseCase: MovieUseCaseProtocol {
         self.repository = repository
     }
     
-    func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
-        repository.fetchMovies()
+    func fetchMovies(for year: String) -> AnyPublisher<[Movie], NetworkError> {
+           repository.fetchMovies(for: year)
     }
     
     func toggleFavorite(_ movie: Movie) {
