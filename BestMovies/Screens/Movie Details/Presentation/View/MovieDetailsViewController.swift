@@ -12,7 +12,6 @@ protocol MovieDetailsViewControllerDelegate: AnyObject {
 }
 
 class MovieDetailsViewController: UIViewController {
-    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
@@ -21,10 +20,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var languageLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    var movie: Movie?
+    var viewModel: MovieDetailsViewModelProtocol!
     weak var delegate: MovieDetailsViewControllerDelegate?
-    
-    private let favoriteManager = FavoriteMovieManager()
     weak var coordinator: MovieDetailsTransitionsDelegate?
     
     override func viewDidLoad() {
@@ -33,6 +30,7 @@ class MovieDetailsViewController: UIViewController {
         navigationItem.title = "Movie Details"
         setupUI()
         setupBackButton()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,15 +38,24 @@ class MovieDetailsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    private func bindViewModel() {
+        if let vm = viewModel as? MovieDetailsViewModel {
+            vm.onFavoriteToggled = { [weak self] updatedMovie in
+                guard let self = self else { return }
+                self.delegate?.movieDetailsViewController(self, didUpdateFavoriteStatusFor: updatedMovie)
+                self.updateFavoriteIcon(isFavorite: updatedMovie.isFavorite == true)
+            }
+        }
+    }
+    
     private func setupUI() {
-        guard let movie = movie else { return }
-        titleLabel.text = movie.title
-        ratingLabel.text = "⭐️ \(movie.voteAverage)/10"
-        releaseDateLabel.text = "📅 \(movie.releaseDate)"
-        overviewLabel.text = movie.overview
-        languageLabel.text = "Language: \(movie.originalLanguage.uppercased())"
-        updateFavoriteIcon(isFavorite: movie.isFavorite == true)
-        ImageLoader.shared.loadImage(from: movie.posterPath, into: posterImageView)
+        titleLabel.text = viewModel.titleText
+        ratingLabel.text = viewModel.ratingText
+        releaseDateLabel.text = viewModel.releaseDateText
+        overviewLabel.text = viewModel.overviewText
+        languageLabel.text = viewModel.languageText
+        updateFavoriteIcon(isFavorite: viewModel.isFavorite)
+        ImageLoader.shared.loadImage(from: viewModel.posterURL, into: posterImageView)
     }
     
     private func updateFavoriteIcon(isFavorite: Bool) {
@@ -58,29 +65,14 @@ class MovieDetailsViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        guard var movie = movie else { return }
-        movie.isFavorite?.toggle()
-        
-        if movie.isFavorite == true {
-            favoriteManager.save(movie)
-        } else {
-            favoriteManager.delete(movieId: movie.id)
-        }
-        
-        updateFavoriteIcon(isFavorite: movie.isFavorite == true)
-        self.movie = movie
-        delegate?.movieDetailsViewController(self, didUpdateFavoriteStatusFor: movie)
+        viewModel.toggleFavorite()
     }
     
     private func setupBackButton() {
         let backImage = UIImage(systemName: "chevron.backward")?.withConfiguration(
             UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
         )
-        
-        let backButton = UIBarButtonItem(image: backImage,
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(backButtonTapped))
+        let backButton = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .darkText
         navigationItem.leftBarButtonItem = backButton
     }
@@ -89,3 +81,4 @@ class MovieDetailsViewController: UIViewController {
         coordinator?.backToMovieList()
     }
 }
+
