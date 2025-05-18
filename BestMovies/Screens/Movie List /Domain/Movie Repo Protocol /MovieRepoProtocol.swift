@@ -9,6 +9,6 @@
 import Combine
 
 protocol MovieRepoProtocol {
-    func fetchMovies() -> AnyPublisher<[Movie], NetworkError>
+    func fetchMovies(for year: String) -> AnyPublisher<[Movie], NetworkError>
     func toggleFavorite(_ movie: Movie)
 }

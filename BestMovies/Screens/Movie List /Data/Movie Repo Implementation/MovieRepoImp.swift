@@ -18,8 +18,8 @@ final class MovieRepoImp: MovieRepoProtocol {
         self.favoriteManager = favoriteManager
     }
     
-    func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
-        remoteRepo.fetchMovies()
+    func fetchMovies(for year: String) -> AnyPublisher<[Movie], NetworkError> {
+        remoteRepo.fetchMovies(for: year)
             .map { [weak self] movies in
                 guard let self = self else { return movies }
                 let favorites = self.favoriteManager.fetchAll()

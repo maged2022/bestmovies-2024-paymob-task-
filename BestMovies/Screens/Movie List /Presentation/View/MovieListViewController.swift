@@ -15,19 +15,20 @@ class MovieListViewController: UIViewController {
     private var viewModel = MovieListViewModel(movieUseCase: MovieUseCase())
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: MovieListTransitionsDelegate?
+    private var selectedYear: String = "2024"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         bindViewModel()
-        viewModel.fetchMovies()
+        viewModel.fetchMovies(for: selectedYear)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Set the navigation title and prefer large titles
-        navigationItem.title = "Best Movies 2024"
+        navigationItem.title = "Best Movies \(selectedYear)"
         navigationItem.largeTitleDisplayMode = .always
         
         // Force the navigation bar to re-layout after popping from the detail screen

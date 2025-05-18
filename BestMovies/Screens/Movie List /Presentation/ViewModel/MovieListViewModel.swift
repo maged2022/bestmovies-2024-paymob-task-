@@ -21,8 +21,8 @@ class MovieListViewModel {
         self.movieUseCase = movieUseCase
     }
     
-    func fetchMovies() {
-        movieUseCase.fetchMovies()
+    func fetchMovies(for year: String) {
+        movieUseCase.fetchMovies(for: year)
             .sink(receiveCompletion: { [weak self] completion in
                 if case let .failure(error) = completion {
                     self?.errorMessage = error.localizedDescription
