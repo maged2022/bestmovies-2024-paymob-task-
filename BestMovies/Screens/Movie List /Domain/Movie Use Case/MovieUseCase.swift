@@ -5,18 +5,27 @@
 //  Created by maged on 16/05/2025.
 //
 
+// MARK: - MovieUseCase.swift
 import Foundation
 import Combine
 
-final class MovieUseCase: MovieRepoProtocol {
+protocol MovieUseCaseProtocol {
+    func fetchMovies() -> AnyPublisher<[Movie], NetworkError>
+    func toggleFavorite(_ movie: Movie)
+}
+
+final class MovieUseCase: MovieUseCaseProtocol {
+    private let repository: MovieRepoProtocol
     
-    var repoImplmentation: MovieRepoProtocol
-    
-    init(repoImplmentation: MovieRepoProtocol = MovieRepoImp()) {
-        self.repoImplmentation = repoImplmentation
+    init(repository: MovieRepoProtocol = MovieRepoImp()) {
+        self.repository = repository
     }
     
     func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
-        repoImplmentation.fetchMovies()
+        repository.fetchMovies()
+    }
+    
+    func toggleFavorite(_ movie: Movie) {
+        repository.toggleFavorite(movie)
     }
 }
