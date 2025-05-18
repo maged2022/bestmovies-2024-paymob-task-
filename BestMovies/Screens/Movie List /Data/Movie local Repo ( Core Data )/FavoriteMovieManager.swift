@@ -8,9 +8,12 @@
 import Foundation
 import CoreData
 
+// MARK: - FavoriteMovieManager.swift
+import CoreData
+
 class FavoriteMovieManager {
     private let context = CoreDataStack.shared.context
-    
+
     func save(_ movie: Movie) {
         let entity = FavoriteMovie(context: context)
         entity.id = Int64(movie.id)
@@ -22,7 +25,7 @@ class FavoriteMovieManager {
         entity.originalLanguage = movie.originalLanguage
         CoreDataStack.shared.saveContext()
     }
-    
+
     func fetchAll() -> [Movie] {
         let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         do {
@@ -42,7 +45,7 @@ class FavoriteMovieManager {
             return []
         }
     }
-    
+
     func delete(movieId: Int) {
         let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         request.predicate = NSPredicate(format: "id == %d", movieId)
@@ -52,16 +55,6 @@ class FavoriteMovieManager {
             CoreDataStack.shared.saveContext()
         } catch {
             print("❌ Delete failed: \(error)")
-        }
-    }
-    
-    func isFavorite(_ id: Int) -> Bool {
-        let request: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %d", id)
-        do {
-            return try context.count(for: request) > 0
-        } catch {
-            return false
         }
     }
 }

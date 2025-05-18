@@ -8,12 +8,13 @@
 import Foundation
 import Combine
 
+// MARK: - MovieRemoteReposatory.swift
+
 protocol MovieRemoteReposatory {
     func fetchMovies() -> AnyPublisher<[Movie], NetworkError>
 }
 
 final class MovieNetwork: MovieRemoteReposatory {
-    
     private let networkManager: NetworkService
     
     init(networkManager: NetworkService = NetworkManager()) {
@@ -22,7 +23,6 @@ final class MovieNetwork: MovieRemoteReposatory {
     
     func fetchMovies() -> AnyPublisher<[Movie], NetworkError> {
         let endpoint = MovieEndpoint.discoverMovies(year: "2024") // we can pass this year in the function
-        
         return networkManager
             .request(MovieResponse.self, endpoint: endpoint)
             .map { $0.results }

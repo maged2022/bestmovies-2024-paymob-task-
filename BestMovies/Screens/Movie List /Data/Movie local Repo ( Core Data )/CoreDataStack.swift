@@ -8,11 +8,14 @@
 import Foundation
 import CoreData
 
+// MARK: - CoreDataStack.swift
+import Foundation
+import CoreData
+
 class CoreDataStack {
     static let shared = CoreDataStack()
-    
     private init() {}
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "BestMoviesModel")
         container.loadPersistentStores { _, error in
@@ -22,11 +25,11 @@ class CoreDataStack {
         }
         return container
     }()
-    
+
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-    
+
     func saveContext() {
         if context.hasChanges {
             do {
