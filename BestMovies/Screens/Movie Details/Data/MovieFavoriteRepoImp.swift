@@ -14,7 +14,7 @@ protocol MovieRepositoryProtocol {
     func delete(movieId: Int)
 }
 
-final class MovieRepository: MovieRepositoryProtocol {
+final class MovieFavoriteRepoImp: MovieRepositoryProtocol {
     private let favoriteManager: FavoriteMovieManager
 
     init(favoriteManager: FavoriteMovieManager = FavoriteMovieManager()) {

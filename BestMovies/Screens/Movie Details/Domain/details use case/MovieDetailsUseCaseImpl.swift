@@ -6,12 +6,8 @@
 //
 
 import Foundation
-// Domain/UseCases/ToggleFavoriteUseCase.swift
-protocol ToggleFavoriteUseCase {
-    func execute(movie: inout Movie)
-}
 
-final class ToggleFavoriteUseCaseImpl: ToggleFavoriteUseCase {
+final class MovieDetailsUseCaseImpl: MovieDetailsProtocol {
     private let repository: MovieRepositoryProtocol
 
     init(repository: MovieRepositoryProtocol) {

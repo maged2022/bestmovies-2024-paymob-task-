@@ -32,8 +32,8 @@ class MovieDetailsCoordinator: Coordinator {
         }
         
         let favoriteManager = FavoriteMovieManager()
-        let repository = MovieRepository(favoriteManager: favoriteManager)
-        let toggleFavoriteUseCase = ToggleFavoriteUseCaseImpl(repository: repository)
+        let repository = MovieFavoriteRepoImp(favoriteManager: favoriteManager)
+        let toggleFavoriteUseCase = MovieDetailsUseCaseImpl(repository: repository)
         let viewModel = MovieDetailsViewModel(movie: movie, toggleFavoriteUseCase: toggleFavoriteUseCase)
         
         movieDetailsVC.viewModel = viewModel

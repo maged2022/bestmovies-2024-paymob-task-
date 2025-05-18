@@ -24,10 +24,10 @@ protocol MovieDetailsViewModelProtocol {
 
 final class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
     private var movie: Movie
-    private let toggleFavoriteUseCase: ToggleFavoriteUseCase
+    private let toggleFavoriteUseCase: MovieDetailsProtocol
     var onFavoriteToggled: ((Movie) -> Void)?
 
-    init(movie: Movie, toggleFavoriteUseCase: ToggleFavoriteUseCase) {
+    init(movie: Movie, toggleFavoriteUseCase: MovieDetailsProtocol) {
         self.movie = movie
         self.toggleFavoriteUseCase = toggleFavoriteUseCase
     }
