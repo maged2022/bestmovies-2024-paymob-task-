@@ -27,7 +27,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.title = "Movie Details"
+        navigationItem.title = "Details"
         setupUI()
         setupBackButton()
         bindViewModel()
