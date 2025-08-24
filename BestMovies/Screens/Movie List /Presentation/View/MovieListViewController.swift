@@ -15,7 +15,7 @@ class MovieListViewController: UIViewController {
     private var viewModel = MovieListViewModel(movieUseCase: MovieUseCase())
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: MovieListTransitionsDelegate?
-    private var selectedYear: String = "2024"
+    private var selectedYear: String = "2020"
     
     override func viewDidLoad() {
         super.viewDidLoad()
