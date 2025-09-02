@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2605CB952E672D3B006CFF0A /* FileTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2605CB942E672D3B006CFF0A /* FileTwo.swift */; };
+		2605CB972E672D8C006CFF0A /* FileThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2605CB962E672D8C006CFF0A /* FileThree.swift */; };
 		26D84DBC2DD8C013001229EC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 26D84DBB2DD8C013001229EC /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2605CB942E672D3B006CFF0A /* FileTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTwo.swift; sourceTree = "<group>"; };
+		2605CB962E672D8C006CFF0A /* FileThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileThree.swift; sourceTree = "<group>"; };
 		26B711452DD62FB500392A47 /* BestMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -52,7 +52,7 @@
 		26B7113C2DD62FB500392A47 = {
 			isa = PBXGroup;
 			children = (
-				2605CB942E672D3B006CFF0A /* FileTwo.swift */,
+				2605CB962E672D8C006CFF0A /* FileThree.swift */,
 				26B711472DD62FB500392A47 /* BestMovies */,
 				26B711462DD62FB500392A47 /* Products */,
 			);
@@ -144,7 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2605CB952E672D3B006CFF0A /* FileTwo.swift in Sources */,
+				2605CB972E672D8C006CFF0A /* FileThree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
