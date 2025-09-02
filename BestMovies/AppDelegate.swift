@@ -7,6 +7,9 @@
 
 import UIKit
 
+// New commit with keep the previous changes
+// git reset --soft commit
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

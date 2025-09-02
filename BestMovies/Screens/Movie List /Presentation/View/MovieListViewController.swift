@@ -17,7 +17,6 @@ class MovieListViewController: UIViewController {
     weak var coordinator: MovieListTransitionsDelegate?
     private var selectedYear: String = "2020"
     
-    // commit a
     
     override func viewDidLoad() {
         super.viewDidLoad()
